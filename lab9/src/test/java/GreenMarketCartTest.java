@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -12,10 +13,10 @@ import java.time.Duration;
 import java.util.*;
 
 public class GreenMarketCartTest {
-    private WebDriver driver;
+    private WebDriver driver = new ChromeDriver();;
     @Test
     public void addItemInCart(){
-        WebDriver driver = new ChromeDriver();
+        //WebDriver driver = new ChromeDriver();
         driver.get("https://green-dostavka.by/product/grudinka-po-derevenski-mestnoe-izvestnoe-1458514/");
         new WebDriverWait(driver, Duration.ofSeconds(50))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='button_size-m__pom7w product-modal_productBtn__BvDQz button_btnGreen__VYPVu']")));
@@ -29,10 +30,9 @@ public class GreenMarketCartTest {
         List<WebElement> searchNavQuantity = driver.findElements(By.xpath("//*[@class='nav_quantity__qTiah'][text()=1]" ));
         Assert.assertTrue( "Adding item to cart is incorrect", searchAddRemove.size()>0 && searchNavQuantity.size()>0);
     }
-    @AfterMethod (alwaysRun = true)
+    @After
     public void browserQuit(){
         driver.quit();
-        driver=null;
     }
 
 }
